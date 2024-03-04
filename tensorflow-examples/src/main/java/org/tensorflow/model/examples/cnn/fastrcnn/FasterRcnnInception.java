@@ -110,6 +110,7 @@ import org.tensorflow.Operand;
 import org.tensorflow.SavedModelBundle;
 import org.tensorflow.Session;
 import org.tensorflow.Tensor;
+import org.tensorflow.Result;
 import org.tensorflow.ndarray.FloatNdArray;
 import org.tensorflow.ndarray.Shape;
 import org.tensorflow.op.Ops;
@@ -269,16 +270,17 @@ public class FasterRcnnInception {
                 //The given SavedModel SignatureDef input
                 feedDict.put("input_tensor", reshapeTensor);
                 //The given SavedModel MetaGraphDef key
-                Map<String, Tensor> outputTensorMap = model.function("serving_default").call(feedDict);
+                Result outputTensorMap = model.function("serving_default").call(feedDict);
+                //Map<String, Tensor> outputTensorMap = model.function("serving_default").call(feedDict);
                 //detection_classes, detectionBoxes etc. are model output names
-                try (TFloat32 detectionClasses = (TFloat32) outputTensorMap.get("detection_classes");
-                     TFloat32 detectionBoxes = (TFloat32) outputTensorMap.get("detection_boxes");
-                     TFloat32 rawDetectionBoxes = (TFloat32) outputTensorMap.get("raw_detection_boxes");
-                     TFloat32 numDetections = (TFloat32) outputTensorMap.get("num_detections");
-                     TFloat32 detectionScores = (TFloat32) outputTensorMap.get("detection_scores");
-                     TFloat32 rawDetectionScores = (TFloat32) outputTensorMap.get("raw_detection_scores");
-                     TFloat32 detectionAnchorIndices = (TFloat32) outputTensorMap.get("detection_anchor_indices");
-                     TFloat32 detectionMulticlassScores = (TFloat32) outputTensorMap.get("detection_multiclass_scores")) {
+                try (TFloat32 detectionClasses = (TFloat32) outputTensorMap.get("detection_classes").get();
+                     TFloat32 detectionBoxes = (TFloat32) outputTensorMap.get("detection_boxes").get();
+                     TFloat32 rawDetectionBoxes = (TFloat32) outputTensorMap.get("raw_detection_boxes").get();
+                     TFloat32 numDetections = (TFloat32) outputTensorMap.get("num_detections").get();
+                     TFloat32 detectionScores = (TFloat32) outputTensorMap.get("detection_scores").get();
+                     TFloat32 rawDetectionScores = (TFloat32) outputTensorMap.get("raw_detection_scores").get();
+                     TFloat32 detectionAnchorIndices = (TFloat32) outputTensorMap.get("detection_anchor_indices").get();
+                     TFloat32 detectionMulticlassScores = (TFloat32) outputTensorMap.get("detection_multiclass_scores").get()) {
                     int numDetects = (int) numDetections.getFloat(0);
                     if (numDetects > 0) {
                         ArrayList<FloatNdArray> boxArray = new ArrayList<>();

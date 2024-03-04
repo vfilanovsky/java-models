@@ -19,6 +19,7 @@ package org.tensorflow.model.examples.cnn.lenet;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.tensorflow.TensorFlow;
 import org.tensorflow.Graph;
 import org.tensorflow.Operand;
 import org.tensorflow.Session;
@@ -291,6 +292,7 @@ public class CnnMnist {
     logger.info(
         "Usage: MNISTTest <num-epochs> <minibatch-size> <optimizer-name>");
 
+    logger.info("*** TF Version " + TensorFlow.version());
     MnistDataset dataset = MnistDataset.create(0, TRAINING_IMAGES_ARCHIVE, TRAINING_LABELS_ARCHIVE,
             TEST_IMAGES_ARCHIVE, TEST_LABELS_ARCHIVE);
 
