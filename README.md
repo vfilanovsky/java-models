@@ -1,5 +1,6 @@
 # Build
 ```
+cd tensorflow-examples
 mvn clean package
 ```
 
