@@ -257,6 +257,7 @@ public class CnnMnist {
       }
     }
 
+/*
     logger.info("Final accuracy = " + ((float) correctCount) / dataset.numTestingExamples());
 
     StringBuilder sb = new StringBuilder();
@@ -275,6 +276,7 @@ public class CnnMnist {
     }
 
     System.out.println(sb);
+*/
   }
 
   /**
