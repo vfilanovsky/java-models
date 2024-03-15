@@ -55,6 +55,11 @@ import org.tensorflow.op.random.TruncatedNormal;
 import org.tensorflow.types.TFloat32;
 import org.tensorflow.types.TUint8;
 
+import org.tensorflow.proto.RewriterConfig;
+import org.tensorflow.proto.ConfigProto;
+import org.tensorflow.proto.GraphOptions;
+
+
 /**
  * Builds a LeNet-5 style CNN for MNIST.
  */
@@ -301,8 +306,20 @@ public class CnnMnist {
     int epochs = Integer.parseInt(args[0]);
     int minibatchSize = Integer.parseInt(args[1]);
 
+        RewriterConfig rewriterConfig = RewriterConfig.newBuilder()
+                            .setAutoMixedPrecisionOnednnBfloat16Value(setAmx)
+                            .build();
+
+        GraphOptions graphOption = GraphOptions.newBuilder()
+                        .mergeRewriteOptions(rewriterConfig)
+                        .build();
+
+        configProto = ConfigProto.newBuilder()
+                        .setGraphOptions(graphOption)
+                        .build();
+
     try (Graph graph = build(args[2]);
-        Session session = new Session(graph)) {
+        Session session = new Session(graph, configProto)) {
       train(session, epochs, minibatchSize, dataset);
 
       logger.info("Trained model");
