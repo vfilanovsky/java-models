@@ -314,7 +314,7 @@ public class CnnMnist {
                         .mergeRewriteOptions(rewriterConfig)
                         .build();
 
-        configProto = ConfigProto.newBuilder()
+        ConfigProto configProto = ConfigProto.newBuilder()
                         .setGraphOptions(graphOption)
                         .build();
 
