@@ -307,7 +307,7 @@ public class CnnMnist {
     int minibatchSize = Integer.parseInt(args[1]);
 
         RewriterConfig rewriterConfig = RewriterConfig.newBuilder()
-                            .setAutoMixedPrecisionOnednnBfloat16Value(setAmx)
+                            .setAutoMixedPrecisionOnednnBfloat16Value(1)
                             .build();
 
         GraphOptions graphOption = GraphOptions.newBuilder()
