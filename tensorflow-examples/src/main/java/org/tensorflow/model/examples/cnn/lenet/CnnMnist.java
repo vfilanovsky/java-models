@@ -328,7 +328,7 @@ public class CnnMnist {
       logger.info("Trained model");
       
       int repCnt = 1;
-      if (args.length() > 3)
+      if (args.length > 3)
         repCnt = Integer.parseInt(args[3]);
 
       Instant start = Instant.now();
