@@ -59,6 +59,9 @@ import org.tensorflow.proto.RewriterConfig;
 import org.tensorflow.proto.ConfigProto;
 import org.tensorflow.proto.GraphOptions;
 
+import java.time.Instant;
+import java.time.Duration;
+
 
 /**
  * Builds a LeNet-5 style CNN for MNIST.
@@ -323,8 +326,17 @@ public class CnnMnist {
       train(session, epochs, minibatchSize, dataset);
 
       logger.info("Trained model");
+      
+      int repCnt = 1;
+      if (args.length() > 3)
+        repCnt = Integer.parseInt(args[3]);
 
-      test(session, minibatchSize, dataset);
+      Instant start = Instant.now();
+
+      for (; repCnt >=0; repCnt--)
+        test(session, minibatchSize, dataset);
+
+      logger.info("Inference took " + Duration.between(start, Instant.now()));
     }
   }
 }
