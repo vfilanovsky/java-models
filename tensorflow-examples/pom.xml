@@ -12,19 +12,25 @@
     <!-- The maven compiler plugin defaults to a lower version -->
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <tensorflow.version>0.6.0-SNAPSHOT</tensorflow.version>
+    <tensorflow.version>1.0.0-rc.1</tensorflow.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.tensorflow</groupId>
-      <artifactId>tensorflow-core-platform</artifactId>
+      <artifactId>tensorflow-core-api</artifactId>
       <version>${tensorflow.version}</version>
     </dependency>
     <dependency>
       <groupId>org.tensorflow</groupId>
       <artifactId>tensorflow-framework</artifactId>
       <version>${tensorflow.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.tensorflow</groupId>
+      <artifactId>tensorflow-core-native</artifactId>
+      <version>${tensorflow.version}</version>
+      <classifier>linux-x86_64</classifier>
     </dependency>
   </dependencies>
 
